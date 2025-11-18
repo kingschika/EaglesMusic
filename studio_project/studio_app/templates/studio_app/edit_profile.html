@@ -1,0 +1,215 @@
+
+{% load static %}
+
+{% block content %}
+<style>
+	        
+    /* Slim top nav styling */
+    .top-nav {
+      background-color: #000;
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 5px 15px;
+      height: 50px;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 95%;
+      z-index: 1000;
+    }
+
+    .top-nav h1 {
+      font-size: 24px;
+      margin: 0;
+      color: #00bfff;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      
+    }
+
+    .menu-toggle {
+      color: white;
+      font-size: 24px;
+      background: none;
+      border: none;
+      cursor: pointer;
+    }
+
+    /* Hidden menu */
+    .hidden-menu {
+      display: none;
+      flex-direction: column;
+      background-color: #111;
+      padding: 10px 0;
+      position: fixed;
+      top: 50px;
+      left: 0;
+      width: 100%;
+      z-index: 999;
+      animation: slideDown 0.3s ease-in-out;
+    }
+
+    .hidden-menu a {
+      color: white;
+      padding: 10px;
+      text-decoration: none;
+      text-align: center;
+      font-weight: bold;
+      border-bottom: 1px solid #333;
+    }
+
+    .hidden-menu a:hover {
+      background-color: #00bfff;
+      color: black;
+    }
+
+
+
+    /* ===== Edit Profile Page Styling ===== */
+    .edit-profile-bg {
+        background: linear-gradient(to bottom, rgba(0,0,0,0.6), rgba(0,0,0,0.8)),
+                    url("{% static 'images/edit-profile-bg.jpg' %}") center/cover no-repeat;
+        min-height: 100vh;
+        color: white;
+        padding-top: 100px;
+        padding-bottom: 80px;
+    }
+
+    .edit-profile-card {
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 20px;
+        backdrop-filter: blur(12px);
+        padding: 40px;
+        max-width: 650px;
+        margin: 0 auto;
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
+        animation: fadeIn 1s ease-in-out;
+    }
+
+    .edit-profile-card h2 {
+        font-size: 2rem;
+        font-weight: 800;
+        color: #00bfff;
+        text-align: center;
+        margin-bottom: 25px;
+    }
+
+    .edit-profile-card label {
+        font-weight: 600;
+        color: #cceeff;
+    }
+
+    .edit-profile-card input,
+    .edit-profile-card select,
+    .edit-profile-card textarea {
+        width: 100%;
+        border-radius: 10px;
+        border: none;
+        padding: 10px 15px;
+        margin-bottom: 15px;
+        outline: none;
+        background: rgba(255, 255, 255, 0.2);
+        color: white;
+    }
+
+    .edit-profile-card input::placeholder,
+    .edit-profile-card textarea::placeholder {
+        color: rgba(255, 255, 255, 0.6);
+    }
+
+    .save-btn {
+        display: inline-block;
+        padding: 12px 25px;
+        background: #00bfff;
+        color: white;
+        border-radius: 8px;
+        text-decoration: none;
+        font-weight: 600;
+        transition: 0.3s;
+        border: none;
+    }
+
+    .save-btn:hover {
+        background: #0090cc;
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(0, 191, 255, 0.3);
+    }
+
+    .back-btn {
+        display: inline-block;
+        margin-top: 10px;
+        padding: 10px 20px;
+        background: transparent;
+        border: 2px solid #00bfff;
+        color: #00bfff;
+        border-radius: 8px;
+        font-weight: 600;
+        transition: 0.3s;
+        text-decoration: none;
+    }
+
+    .back-btn:hover {
+        background: #00bfff;
+        color: white;
+        transform: translateY(-2px);
+    }
+
+    @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(20px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+</style>
+
+    
+  <!-- Top Navbar -->
+  <div class="top-nav">
+    <h1>Eagles Music Records</h1>
+    <button class="menu-toggle" onclick="toggleMenu()">☰</button>
+  </div>
+
+  <!-- Hidden menu -->
+  <div class="hidden-menu" id="hiddenMenu">
+    <a href="{% url 'studio_app:home' %}">Home</a>
+    <a href="{% url 'studio_app:upload_music' %}">Upload Music</a>
+    <a href="{% url 'studio_app:upload_video' %}">Upload Video</a>
+    <a href="{% url 'studio_app:login' %}">Login</a>
+    <a href="{% url 'studio_app:register' %}">Sign Up</a>
+    <a href="{% url 'studio_app:contact' %}">Contact Us</a>
+    <a href="{% url 'studio_app:about' %}">About Us</a>
+    <a href="{% url 'studio_app:news' %}">News</a>
+    <a href="{% url 'studio_app:artists' %}">Our Artists</a>
+    <a href="{% url 'studio_app:join' %}">For Artists</a>
+  </div>
+
+
+<div class="edit-profile-bg">
+    <div class="edit-profile-card">
+        <h2>Edit Your Profile</h2>
+
+        <form method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{ form.as_p }}
+
+            <div class="text-center mt-4">
+                <button type="submit" class="save-btn">💾 Save Changes</button>
+                <a href="{% url 'studio_app:dashboard' %}" class="back-btn">← Back to Dashboard</a>
+            </div>
+        </form>
+    </div>
+
+
+   <div class="footer">
+        <nav>
+            <a href="{% url 'studio_app:home' %}">Home</a> |
+            <a href="{% url 'studio_app:privacy_policy' %}">Privacy Policy</a> |
+            <a href="{% url 'studio_app:terms_conditions' %}">Terms of Use</a> |
+            <a href="{% url 'studio_app:logout' %}">log out !</a> |
+            <a href="https://api.whatsapp.com/send?phone=+2347040702727&text=Hi%20I%20just%20visited%20your%20music%20studio%20website!">Join Us on WhatsApp</a>
+        </nav>
+        <p>&copy; {% now "Y" %} Eagles Music Records. All rights reserved.</p>
+    </div>
+    </div>
+
+{% endblock %} 

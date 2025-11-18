@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Online Market Store</title>
+    <style>
+        /* Add some basic styling */
+        body {
+            font-family: Arial, sans-serif;
+        }
+        .online-market-store-container {
+            max-width: 800px;
+            margin: 40px auto;
+            padding: 20px;
+            background-color: #f9f9f9;
+            border: 1px solid #ddd;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .product {
+            margin-bottom: 20px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #ccc;
+        }
+        .product h2 {
+            margin-top: 0;
+        }
+
+           .slideshow-container img {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      opacity: 0;
+      animation: fade 12s infinite;
+    }
+
+    @keyframes fade {
+      0%, 16.67% { opacity: 1; }
+      16.68%, 100% { opacity: 0; }
+    }
+
+    .slideshow-container img:nth-child(1) { animation-delay: 0s; }
+    .slideshow-container img:nth-child(2) { animation-delay: 2s; }
+    .slideshow-container img:nth-child(3) { animation-delay: 4s; }
+    .slideshow-container img:nth-child(4) { animation-delay: 6s; }
+    .slideshow-container img:nth-child(5) { animation-delay: 8s; }
+    .slideshow-container img:nth-child(6) { animation-delay: 10s; }
+
+    </style>
+</head>
+
+
+<body>
+      <!-- 🎞️ Background Slideshow -->
+    <div class="slideshow ">
+       <!-- <img src="{% static 'studio_app/img/studio2.webp' %}" alt="Studio 2">-->
+       <!-- <img src="{% static 'studio_app/img/studio3.webp' %}" alt="Studio 3">-->
+        <!--<img src="{% static 'studio_app/img/tweeteight.jpeg' %}" alt="Studio 4">-->
+        <img src="{% static 'studio_app/img/studio9.jpeg' %}" alt="Studio 5">
+        <img src="{% static 'studio_app/img/studio9.jpeg' %}" alt="Studio 6">
+    </div> 
+
+         
+    <div class="online-market-store-container">
+        <h1>Online Market Store</h1>
+        {% for product in products %}
+            <div class="product">
+                <h2>{{ product.name }}</h2>
+                <p>{{ product.description }}</p>
+                <p>Price: {{ product.price }}</p>
+                {% if product.image %}
+                    <img src="{{ product.image.url }}" alt="Product Image">
+                {% endif %}
+                <p><a href="/product/{{ product.id }}/">View Details</a></p>
+            </div>
+            
+        {% endfor %}
+    </div>
+
+
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark" style="position: relative; padding: 0; border: none;">
+   <div class="slideshow-container" style="width: 100%; height: 100vh; position: relative;">    
+      <img src="{% static 'studio_app/img/studio12.avif' %}" class="d-block" style="width: 100%; height: 100vh; object-fit: cover;" alt="...">
+       
+        <!-- 👣 Footer -->
+    <div class="footer" style="padding:100px; ">
+        <nav>
+            <a href="/contact">Contact</a> |
+            <a href="#">Privacy Policy</a> |
+            <a href="#">Terms of Service</a>
+        </nav>
+        <p>&copy; {{ now.year }} Eagles Music Records. All rights reserved.</p>
+    </div>
+</nav>
+</body>
+</html>

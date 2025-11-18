@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Advertise Your Products</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #fafafa;
+        }
+        .advertisement-container {
+            max-width: 900px;
+            margin: 80px auto;
+            padding: 40px;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            font-weight: 700;
+            color: #222;
+            margin-bottom: 20px;
+        }
+        p {
+            color: #555;
+            line-height: 1.7;
+        }
+        .cta-btn {
+            display: inline-block;
+            background-color: #007bff;
+            color: white;
+            padding: 12px 24px;
+            border-radius: 6px;
+            text-decoration: none;
+            transition: 0.3s;
+        }
+        .cta-btn:hover {
+            background-color: #0056b3;
+        }
+        .banner {
+            width: 100%;
+            height: 300px;
+            background: url("{% static 'studio_app/img/studio2.webp' %}") center/cover no-repeat;
+            border-radius: 12px 12px 0 0;
+        }
+    </style>
+</head>
+
+<body>
+	   <div style="position: absolute; top: 0; left: 0; padding: 10px;">
+            <a class="navbar-brand" style="color:white;"><h1> Eagles Music Records</h1></a>
+        </div>
+
+
+    <div class="advertisement-container">
+        <div class="banner"></div>
+
+        <h1 class="mt-4">Advertise Your Products Here!</h1>
+
+        <p>
+            Reach a wider audience and promote your products or services through our online market store.
+            Whether you’re launching a new product or expanding your brand’s reach, we provide targeted
+            advertising solutions designed to help you connect with the right customers and drive more sales.
+        </p>
+
+        <h3 class="mt-4">🎯 Why Advertise With Us?</h3>
+        <ul>
+            <li>Showcase your products to thousands of potential customers.</li>
+            <li>Boost visibility through our trending product listings.</li>
+            <li>Affordable and effective marketing packages.</li>
+            <li>24/7 support and campaign monitoring.</li>
+        </ul>
+
+        <div class="text-center mt-4">
+            <a href="/contact/" class="cta-btn">📩 Contact Us to Get Started</a>
+        </div>
+    </div>
+
+    <footer class="text-center mt-5 mb-3 text-muted">
+        &copy; {{ now.year }}Eagles Music Records. All rights reserved.
+    </footer>
+</body>
+</html>

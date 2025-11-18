@@ -1,0 +1,10 @@
+from django.db import models
+
+# Create your models here.
+
+from django.db import models
+
+class SocialMedia(models.Model):
+    platform = models.CharField(max_length=255)
+    access_token = models.CharField(max_length=255)
+    expires_in = models.DateTimeField()

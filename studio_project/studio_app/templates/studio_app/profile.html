@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+{% load static %}
+{% load tz %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Eagles Music Records - Login</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html, body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            color: #fff;
+            overflow-x: hidden;
+        }
+
+        .background-img {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: -1;
+        }
+
+        .contact-container {
+            background-color: rgba(0, 0, 0, 0.7);
+            margin: auto;
+            padding: 40px;
+            border-radius: 12px;
+            width: 90%;
+            max-width: 420px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
+            text-align: center;
+        }
+
+        h1 {
+            margin-bottom: 25px;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            align-items: stretch;
+        }
+
+        label {
+            text-align: left;
+            margin-bottom: 8px;
+            font-weight: 600;
+        }
+
+        input[type="text"],
+        input[type="password"] {
+            padding: 10px;
+            border-radius: 6px;
+            border: none;
+            margin-bottom: 20px;
+            font-size: 15px;
+        }
+
+        button {
+            padding: 10px;
+            background-color: #ff4e4e;
+            color: #fff;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            font-size: 16px;
+        }
+
+        button:hover {
+            background-color: #e63e3e;
+        }
+
+        .footer {
+            margin-top: auto;
+            background-color: rgba(0, 0, 0, 0.85);
+            color: #ccc;
+            padding: 15px 20px;
+            text-align: center;
+            font-size: 14px;
+        }
+
+        .footer nav {
+            margin-bottom: 10px;
+        }
+
+        .footer nav a {
+            color: #fff;
+            margin: 0 10px;
+            text-decoration: none;
+        }
+
+        .footer nav a:hover {
+            text-decoration: underline;
+        }
+
+        @media (max-width: 600px) {
+            .contact-container {
+                padding: 25px;
+            }
+        }
+    </style>
+</head>
+
+{% block content %}
+    
+    <img src="{% static 'studio_app/img/studio5.jpg' %}" alt="Studio Background" class="background-img">
+
+    <div class="contact-container">
+        <h1 style="margin-bottom: 20px;">Eagles  Music Records</h1>
+        <h1>Welcome {{ user.username|title }}</h1>
+        <h1>Profile</h1>
+        <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Save</button>
+        </form>
+
+     
+
+        {% if profile.profile_picture %}
+            <img src="{{ profile.profile_picture.url }}" alt="{{ user.username }}">
+        {% else %}
+            <img src="{% static 'images/default-profile.png' %}" alt="Profile">
+        {% endif %}
+
+        <p style="text-align:center; font-size: 1.1rem;">Role: <strong>{{ profile.role|title }}</strong></p>
+        <p style="text-align:center;">{{ profile.bio|default:"No bio added yet." }}</p>
+
+        <h2>Songs:</h2>
+        <ul>
+         {% for song in songs %}
+        <li>{{ song.title }} by {{ song.artist.name }}</li>
+         {% endfor %}
+        </ul>
+
+        <h2>Music:</h2>
+        <ul>
+        {% for music in music %}
+        <li>{{ music.title }} by {{ music.artist }}</li>
+        {% endfor %}
+         </ul>
+
+        <h2>Videos:</h2>
+       <ul>
+      {% for video in videos %}
+        <li>{{ video.title }} by {{ video.artist }}</li>
+      {% endfor %}
+    </ul>
+    
+
+    <h4>🎵 Favorite Songs</h4>
+     {% if favorite_songs %}
+    <ul>
+    {% for song in favorite_songs %}
+    <li>{{ song.title }} by {{ song.artist.name }}</li>
+        {% endfor %}
+            </ul>
+        {% else %}
+            <p>No favorite songs yet.</p>
+        {% endif %}
+
+        <h4>🎤 Favorite Artists</h4>
+        {% if favorite_artists %}
+            <ul>
+                {% for artist in favorite_artists %}
+                    <li>{{ artist.name }}</li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p>No favorite artists yet.</p>
+        {% endif %}
+
+        
+        <h4>🎬 Favorite Videos</h4>
+        {% if favorite_videos %}
+            <ul>
+                {% for video in favorite_videos %}
+                    <li>{{ video.title }}</li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p>No favorite videos yet.</p>
+        {% endif %}
+   
+    </div>
+<!--username, bio, favourite music, favourite videos, artist profile-->
+
+    <div class="footer">
+        <nav>
+            <a href="{% url 'studio_app:home' %}">Home</a> |
+            <a href="{% url 'studio_app:privacy_policy' %}">Privacy Policy</a> |
+            <a href="{% url 'studio_app:terms_conditions' %}">Terms of Use</a>
+        </nav>
+        <p>&copy; {% now "Y" %} Eagles Music Records. All rights reserved.</p>
+    </div>
+    
+{% endblock %}

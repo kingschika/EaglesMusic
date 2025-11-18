@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Record Label Deals</title>
+    <style>
+        /* Add some basic styling */
+        body {
+            font-family: Arial, sans-serif;
+        }
+        .record-label-deals-container {
+            max-width: 800px;
+            margin: 40px auto;
+            padding: 20px;
+            background-color: #f9f9f9;
+            border: 1px solid #ddd;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .record-label-deal {
+            margin-bottom: 20px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #ccc;
+        }
+        .record-label-deal h2 {
+            margin-top: 0;
+        }
+    </style>
+</head>
+<body>
+    <div>
+     <!--Local static image background--> 
+     <div>
+    <img src="{% static 'studio_app/img/tweeteight.jpeg' %}" alt="Studio Background" class="background-img">
+       <img src="{% static 'studio_app/img/tweeteight.jpeg' %}" alt="Studio Background" class="background-img">
+        <img src="{% static 'studio_app/img/tweeteight.jpeg' %}" alt="Studio Background" class="background-img">
+             <img src="{% static 'studio_app/img/tweeteight.jpeg' %}" alt="Studio Background" class="background-img">
+                <img src="{% static 'studio_app/img/tweeteight.jpeg' %}" alt="Studio Background" class="background-img">
+                   <img src="{% static 'studio_app/img/tweeteight.jpeg' %}" alt="Studio Background" class="background-img">
+    </div>  
+      
+
+    <div class="record-label-deals-container">
+        <h1>Record Label Deals</h1>
+        {% for deal in record_label_deals %}
+            <div class="record-label-deal">
+                <h2>{{ deal.title }}</h2>
+                <p>{{ deal.description }}</p>
+                {% if deal.document %}
+                    <p><a href="{{ deal.document.url }}">Download Deal Document</a></p>
+                {% endif %}
+            </div>
+        {% endfor %}
+    </div>
+
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark" style="position: relative; padding: 0; border: none;">
+   <div class="slideshow-container" style="width: 100%; height: 100vh; position: relative;">    
+      <img src="{% static 'studio_app/img/studio12.avif' %}" class="d-block" style="width: 100%; height: 100vh; object-fit: cover;" alt="...">
+       
+        <!-- 👣 Footer -->
+    <div class="footer" style="padding:50px; ">
+        <nav>
+            <a href="/contact">Contact</a> |
+            <a href="#">Privacy Policy</a> |
+            <a href="#">Terms of Service</a>
+        </nav>
+        <p>&copy; {{ now.year }} Eagles  Music Records. All rights reserved.</p>
+    </div>
+</nav>
+</body>
+</html>

@@ -1,0 +1,76 @@
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    line-height: 1.6;
+    background-color: #f8f9fa;
+    color: #333;
+}
+
+/* Navbar */
+.navbar {
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+.navbar-brand img {
+    height: 50px;
+}
+.nav-link {
+    font-weight: 500;
+}
+
+/* Hero Banner */
+header {
+    background-color: #000;
+    background-blend-mode: overlay;
+    color: #fff;
+    padding: 100px 20px;
+    text-shadow: 0 1px 3px rgba(0,0,0,0.5);
+}
+header h1 {
+    font-size: 3rem;
+    font-weight: bold;
+}
+header .btn {
+    margin-top: 20px;
+}
+
+/* Section Headings */
+section h2 {
+    font-size: 2rem;
+    border-bottom: 2px solid #0d6efd;
+    padding-bottom: 0.3em;
+    margin-bottom: 1em;
+    color: #0d6efd;
+}
+
+/* Service Times List */
+.list-group-item strong {
+    color: #0d6efd;
+}
+
+/* Footer */
+footer {
+    background-color: #212529;
+    color: #fff;
+    margin-top: 40px;
+}
+footer p {
+    margin: 0;
+}
+
+/* Contact Form */
+form {
+    max-width: 600px;
+}
+form .btn {
+    width: 150px;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+    header h1 {
+        font-size: 2.2rem;
+    }
+    header p {
+        font-size: 1rem;
+    }
+}
+

@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Eagles Records Music Studio{% endblock title %}</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.4.1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="{% static 'studio_app/css/styles.css' %}" rel="stylesheet">
+    
+    <style>
+        
+    /* Slim top nav styling */
+    .top-nav {
+      background-color: #000;
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 5px 15px;
+      height: 50px;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      z-index: 1000;
+    }
+
+    .top-nav h1 {
+      font-size: 24px;
+      margin: 0;
+      color: #00bfff;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      
+    }
+
+    .menu-toggle {
+      color: white;
+      font-size: 24px;
+      background: none;
+      border: none;
+      cursor: pointer;
+    }
+
+    /* Hidden menu */
+    .hidden-menu {
+      display: none;
+      flex-direction: column;
+      background-color: #111;
+      padding: 10px 0;
+      position: fixed;
+      top: 50px;
+      left: 0;
+      width: 100%;
+      z-index: 999;
+      animation: slideDown 0.3s ease-in-out;
+    }
+
+    .hidden-menu a {
+      color: white;
+      padding: 10px;
+      text-decoration: none;
+      text-align: center;
+      font-weight: bold;
+      border-bottom: 1px solid #333;
+    }
+
+    .hidden-menu a:hover {
+      background-color: #00bfff;
+      color: black;
+    }
+
+    @keyframes slideDown {
+      from {
+        opacity: 0;
+        transform: translateY(-10px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* Preserve your original slideshow and body styling */
+    .slideshow-container img {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      opacity: 0;
+      animation: fade 12s infinite;
+    }
+
+    @keyframes fade {
+      0%, 16.67% { opacity: 1; }
+      16.68%, 100% { opacity: 0; }
+    }
+
+    .slideshow-container img:nth-child(1) { animation-delay: 0s; }
+    .slideshow-container img:nth-child(2) { animation-delay: 2s; }
+    .slideshow-container img:nth-child(3) { animation-delay: 4s; }
+    .slideshow-container img:nth-child(4) { animation-delay: 6s; }
+    .slideshow-container img:nth-child(5) { animation-delay: 8s; }
+    .slideshow-container img:nth-child(6) { animation-delay: 10s; }
+
+    .item { background:#1e1e1e; margin: 15px 0; padding: 15px; border-radius: 10px; }
+    audio, video { width: 100%; border-radius: 8px; margin-top: 10px; }
+    a.download { color:#00bfff; text-decoration: none; display: inline-block; margin-top: 10px; }
+    a.download:hover { text-decoration: underline; }
+  
+    body {margin: 0;
+            font-family: Arial, sans-serif;
+            background: #f8f8f8;
+          }
+
+    header {background-color: #000;
+            padding: 15px 20px;
+            color: white;
+           }
+
+    .header-container {
+      display: flex;
+      align-items: center;
+    }
+
+    .logo img {
+        height: 100px;
+        width: auto;
+        margin-right: 15px;
+    }
+
+    .site-title {
+        font-size: 28px;
+        font-weight: bold;
+    }
+
+    nav {
+      background: #222;
+    }
+
+    nav ul {
+        margin: 0;
+        padding: 0;
+        display: flex;
+        list-style: none;
+    }
+
+    nav ul li {
+        padding: 15px 20px;
+    }
+
+    nav ul li a {
+        color: white;
+        text-decoration: none;
+        font-size: 16px;
+    }
+
+    nav ul li a:hover {
+        text-decoration: underline;
+    }
+
+    main {
+       padding: 25px;
+    }      
+</style>
+</head>
+<body>
+      <!-- Header With Logo -->
+    <header>
+        <div class="header-container">
+            <a href="/" class="logo">
+                <!-- Placeholder logo -->
+                <img src="{% static 'studio_app/img/eagle.png' %}" alt="Record Label Logo">
+            </a>
+            <h1 class="site-title">Welcome to Eagles City Of Music</h1>
+        </div>
+    </header>
+
+
+    
+  <!-- Top Navbar -->
+  <div class="top-nav">
+    <h1>Eagles Music Records</h1>
+    <button class="menu-toggle" onclick="toggleMenu()">☰</button>
+  </div>
+
+  <!-- Hidden menu -->
+  <div class="hidden-menu" id="hiddenMenu">
+    <a href="{% url 'studio_app:home' %}">Home</a>
+    <a href="{% url 'studio_app:music_authorization' %}">Upload Music</a>
+    <a href="{% url 'studio_app:video_authorization' %}">Upload Video</a>
+    <a href="{% url 'studio_app:login' %}">Login</a>
+    <a href="{% url 'studio_app:register' %}">Sign Up</a>
+    <a href="{% url 'studio_app:contact' %}">Contact Us</a>
+    <a href="{% url 'studio_app:about' %}">About Us</a>
+    <a href="{% url 'studio_app:news' %}">News</a>
+    <a href="{% url 'studio_app:artists' %}">Our Artists</a>
+    <a href="{% url 'studio_app:join' %}">For Artists</a>
+  </div>
+
+    <!--Main body Code Continues Below -->
+
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark" style="position: relative; padding: 0; border: none;">
+    <div class="slideshow-container" style="width: 100%; height: 100vh; position: relative;">    
+      {# Optional site logo (managed via admin) #}
+      {% if site_config and site_config.logo %}
+        <img src="{{ site_config.logo.url }}" class="d-block" style="width: 100%; height: 100vh; object-fit: cover;" alt="{{ site_config.site_name }} logo">
+      {% endif %}
+
+      {# Hero slides: editable via admin (SlideImage section='hero') #}
+      {% if hero_slides %}
+        {% for slide in hero_slides %}
+          <img src="{{ slide.image.url }}" style="width: 100%; height: 100%; object-fit: cover;" alt="{{ slide.caption|default:site_config.site_name }}">
+        {% endfor %}
+      {% else %}
+        {# Fallback to static images if no slides uploaded #}
+        <img src="{% static 'studio_app/img/tweetone.jpg' %}" class="d-block" style="width: 100%; height: 100vh; object-fit: cover;" alt="...">
+        <img src="{% static 'studio_app/img/tweeteleven.jpg' %}" style="width: 100%; height: 100%; object-fit: cover;">
+        <img src="{% static 'studio_app/img/singer.jpeg' %}" style="width: 100%; height: 100%; object-fit: cover;">
+        <img src="{% static 'studio_app/img/tweet.png' %}" style="width: 100%; height: 100%; object-fit: cover;">
+        <img src="{% static 'studio_app/img/tweethree.jpg' %}" style="width: 100%; height: 100%; object-fit: cover;">
+        <img src="{% static 'studio_app/img/tweeteleven.jpg' %}" style="width: 100%; height: 100%; object-fit: cover;">
+        <img src="{% static 'studio_app/img/tweetone.jpg' %}" style="width: 100%; height: 100%; object-fit: cover;">
+      {% endif %}
+       <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;">
+        <!-- Button 1 -->
+         <a href="https://api.whatsapp.com/send?phone=+2347040702727&text=Hi%20I%20just%20visited%20your%20music%20studio%20website!" target="_blank" class="btn btn-success" style="position: absolute; top: 40%; left: 0%; text-decoration: none; color:white; background-color:blue; padding: 10px; font-weight:bold;">Join Us On WhatsApp</a>
+        
+        <!-- Button 2  facebook page link-->
+        <a href="https://m.me/King Godking" style="position: absolute; top: 40%; left: 70%; text-decoration: none; color: white; background-color: blue; padding: 10px; font-weight:bold;">Our Facebook Page</a>
+        </div>  
+
+        <div style="position: absolute; top: 0; left: 0; padding: 10px;">
+            <a class="navbar-brand" style="color: deepskyblue; top:0" ><h1>...</h1></a>
+            
+            <ul style="list-style: none; padding: 0; margin: 0; display: flex; flex-wrap: wrap;">
+                <li style="margin-right: 20px;"><a href="{% url 'studio_app:home' %}" style="color: deepskyblue; text-decoration: none;">Home</a></li>
+                <li style="margin-right: 20px;"><a href="{% url 'studio_app:music_authorization' %}" style="color: deepskyblue; text-decoration: none;">Upload Music</a></li>
+                <li style="margin-right: 20px;"><a href="{% url 'studio_app:video_authorization' %}" style="color: deepskyblue; text-decoration: none;">Upload Video</a></li>
+                <li style="margin-right: 20px;"><a href="{% url 'studio_app:login' %}" style="color: deepskyblue; text-decoration: none;">Login</a></li>
+                <li style="margin-right: 20px;"><a href="{% url 'studio_app:register' %}" style="color: deepskyblue; text-decoration: none;">SignUp</a></li>
+                <li style="margin-right: 20px;"><a href="{% url 'studio_app:contact' %}" style="color: deepskyblue; text-decoration: none;">Contact Us</a></li>
+                <li style="margin-right: 20px;"><a href="{% url 'studio_app:about' %}" style="color: deepskyblue; text-decoration: none;">About Us</a></li>
+                <li style="margin-right: 20px;"><a href="{% url 'studio_app:news' %}" style="color: deepskyblue; text-decoration: none;">News</a></li>
+                <li style="margin-right: 20px;"><a href="{% url 'studio_app:artists' %}" style="color: white; text-decoration: none;">Our Artists</a></li>
+                <li style="margin-right: 20px;"><a href="{% url 'studio_app:join' %}" style="color: white; text-decoration: none;">For Artists</a></li>
+            
+            </ul>
+
+        </div>
+    
+        <div style="position: absolute; top: 62%; left: 50%; transform: translate(-50%, -50%);">
+            <h1 style="color: white; font-size: 30px;">Eagles Music Records</h1>
+            <h3 style="color: blueviolet;">Where your Music Dreams are fulfilled!!</h3>
+            <a href="https://m.me/King Godking"  style="position:absolute; top:90%; left:40%; text-decoration: none; color: whitesmoke; background-color: blue; padding: 10px; font-weight:bold;">Book A Session Now!</a>
+    
+        </div>
+    </div> 
+
+    <!--The below nav act as  a partitioner-->
+    </nav>
+
+<div>
+        <h2 style="color: blue; font-size: 48px;">Eagles City Of Music</h2>
+            <l1><h3 style="color: blueviolet;  font-size: 30px; font-family: 'Dancing Script',cursive;">Where your Music Dreams are fulfilled!!</h3></l1>
+</div>
+
+<div></div>
+
+<div>
+    <h1 style="color: blue; font-size: 35px; font-family: 'Dancing Script',cursive;">Do you want your songs and videos to go viral?</h1>
+    <l1><h3 style="color: red;  font-size: 25px; font-family: 'Dancing Script',cursive;">Call Us Now !!</h3></l1>
+        <l1><h3 style="color:blue;  font-size: 25px; font-family: 'Dancing Script',cursive;">Telephone number: 07040702727</h3></l1>
+            <l1><h3 style="color: red;  font-size: 25px; font-family: 'Dancing Script',cursive;">Chat Us Up On WhatsApp: 07040702727 </h3></l1>
+</div>
+
+    
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark" style="position: relative; padding: 0; border: none;">
+   <div class="slideshow-container" style="width: 100%; height: 100vh; position: relative;">    
+      <img src="{% static 'studio_app/img/tweethree.jpg' %}" class="d-block" style="width: 100%; height: 100vh; object-fit: cover;" alt="...">
+      <img src="{% static 'studio_app/img/tweeteleven.jpg' %}"  style="width: 100%; height: 100%; object-fit: cover;">
+      <img src="{% static 'studio_app/img/tweeten.jpeg' %}"  style="width: 100%; height: 100%; object-fit: cover; ">
+      <img src="{% static 'studio_app/img/tweetnine.jpeg' %}" style="width: 100%; height: 100%; object-fit: cover;">
+      <img src="{% static 'studio_app/img/tweetwo.avif' %}" style="width: 100%; height: 100%; object-fit: cover;">
+      <img src="{% static 'studio_app/img/tweetsix.jpeg' %}" style="width: 100%; height: 100%; object-fit: cover; ">
+      <img src="{% static 'studio_app/img/tweetone.jpg' %}" style="width: 100%; height: 100%; object-fit: cover;">
+    
+    <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;">
+        <!-- Button 1 whatsapp -->
+        <!--<a href="https://api.whatsapp.com/send?phone=+2347040702727&text=Hi%20I%20just%20visited%20your%20music%20studio%20website!" target="_blank"  class="btn btn-success" style="position: absolute; top: 30%; left: 2%; text-decoration: none; color: white; background-color: red; padding: 10px; font-weight:bold;">Join Us on WhatsApp</a>-->
+         <!--button 2 instagram -->
+        <a href="https://www.instagram.com/direct/new/?text=Hello&username=King Godking" style="position: absolute; top: 40%; left: 40%; text-decoration: none; color: white; background-color: red; padding: 10px; font-weight:bold; width:20%;">Instagram Page</a>
+        <!-- Button 3  facebook -->
+        <a href="https://m.me/King Godking" style="position: absolute; top: 60%; left: 40%; text-decoration: none; color: white; background-color: blue; padding: 10px; font-weight:bold; width:20%;"> Facebook Page</a>
+        <!-- Button 4  twitter -->
+        <a href="https://twitter.com/godking3542" target="_blank" rel="noopener noreferrer" style="position: absolute; top: 62%; left: 15%; text-decoration: none; color: white; background-color:black; padding: 10px; font-weight:bold;">On Twitter(X)</a>
+        <!-- Button 5 tiktok -->
+        <a href="https://www.tiktok.com/@beatmaster3000" style="position: absolute; top: 60%; left: 70%; text-decoration: none; color: white; background-color: black; padding: 10px; font-weight:bold;">Our Tiktok Page</a>
+        
+        <!-- Button 6 youtube -->
+        <a href="https://www.youtube.com/@kinggodking3208" style="position: absolute; top: 80%; left: 40%; text-decoration: none; color: white; background-color: red; padding: 10px; font-weight:bold;">Our Youtube Page</a>
+    </div>  
+
+    <div style="position: absolute; top: 0; left: 0; padding: 10px;">
+        <a class="navbar-brand" style="color:white;" ><h1>Eagles Music Records</h1></a>
+
+        <ul style="list-style: none; padding: 0; margin: 0; display: flex; flex-wrap: wrap;">
+            <li style="margin-right: 20px;"><a href="{% url 'studio_app:artists' %}" style="color: white; text-decoration: none;">Our Artists</a></li>
+            <li style="margin-right: 20px;"><a href="{% url 'studio_app:music_authorization' %}" style="color: white; text-decoration: none;">Upload Music</a></li>
+            <li style="margin-right: 20px;"><a href="{% url 'studio_app:video_authorization' %}" style="color: white; text-decoration: none;">Upload Video</a></li>
+            <li style="margin-right: 20px;"><a href=" https://m.me/King Godking" style=" color: white; text-decoration: none;">Record Live</a></li>
+            <li style="margin-right: 20px;"><a href="{% url 'studio_app:join' %}" style="color: white; text-decoration: none;">Watch Us Live</a></li>
+            <li style="margin-right: 20px;"><a href="{% url 'studio_app:contact' %}" style="color: white; text-decoration: none;">Contact Us</a></li>
+            <li style="margin-right: 20px;"><a href="{% url 'studio_app:about' %}" style="color: white; text-decoration: none;">About Us</a></li>
+            <li style="margin-right: 20px;"><a href="{% url 'studio_app:news' %}" style="color: white; text-decoration: none;">News</a></li>
+            <li style="margin-right: 20px;"><a href="{% url 'studio_app:join' %}" style="color: white; text-decoration: none;">For Artists</a></li>
+            <li><a href="{% url 'studio_app:faq' %}" style="color: white; text-decoration: none;">FAQ</a></li>
+            
+        </ul>
+    </div>
+    </div>
+</nav>
+
+
+<div>
+    <li><a href="https://api.whatsapp.com/send?phone=2348066188395&text=Hi%20I%20just%20visited%20your%20music%20studio%20website!" target="_blank">Record Live Wherever you are!!!</a></li>
+    <li><a href="https://m.me/King Godking"target="_blank" >Watch us Live every saturday</a></li>
+</div>
+
+
+
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark" style="position: relative; padding: 0; border: none; height: 50vh;">
+    <div style="position: absolute; top: 0; left: 0; padding: 10px; background-color: blue">
+        <a class="navbar-brand" href="..."><h1> Music And Entertainment</h1></a>
+            
+
+        <ul style="list-style: none; padding: 0; margin: 0; display: flex; flex-wrap: wrap;">
+            <li style="margin-right: 20px;"><a href="{% url 'studio_app:trending' %}" style="color: white; text-decoration: none;">Trending Videos</a></li>
+            <li style="margin-right: 20px;"><a href="{% url 'studio_app:social' %}" style="color: white; text-decoration: none;">Social Media entertainment news</a></li>
+            <li style="margin-right: 20px;"><a href="{% url 'studio_app:comedy_entertainment' %}" style="color: white; text-decoration: none;">Comedy And Entertainment</a></li>
+            <li style="margin-right: 20px;"><a href="{% url 'studio_app:artist_connect' %}" style="color: white; text-decoration: none;">Connect to other Artists</a></li>
+            <li style="margin-right: 20px;"><a href="{% url 'studio_app:download_songs' %}" style="color: white; text-decoration: none;">Download Our Songs</a></li>
+            <li style="margin-right: 20px;"><a href="{% url 'studio_app:faq' %}" style="color: white; text-decoration: none;">Have a Question for Tweet Music Records?</a></li>
+            <li style="margin-right: 20px;"><a href="{% url 'studio_app:download_videos' %}" style="color: white; text-decoration: none;">Download Our Music Videos</a></li>
+            <li style="margin-right: 20px;"><a href="{% url 'studio_app:news' %}" style="color: white; text-decoration: none;">News</a></li>
+            <li style="margin-right: 20px;"><a href="{% url 'studio_app:artists' %}" style="color: white; text-decoration: none;">Our Artists</a></li>
+            <li><a href="{% url 'studio_app:faq' %}" style="color: white; text-decoration: none;">Visit our FAQ Page</a></li>
+        </ul>
+    </div>
+</nav>
+
+
+
+       
+    <div class="container mt-5">
+        <h2>News</h2>
+        <div class="row">
+            <div class="col-md-4">
+                <h3>Online Market Store</h3>
+                <p>Get the latest music merchandise, exclusive apparel, and limited-edition collectibles from your favorite artists. Shop now and show off your music style!</p>
+                <a href="{% url 'studio_app:online_market_store' %}" class="btn btn-secondary" style="background-color:blue">Shop Now</a>
+            
+            </div>
+        
+            <div class="col-md-4">
+                <h3>Trending Music Videos and Songs</h3> 
+                <P>Stay up-to-date with the latest hits and trending music videos from top artists. Discover new music, watch exclusive performances, and get the inside scoop on the music industry.</p>
+                <a href="{% url 'studio_app:trending' %}" class="btn btn-secondary" style="background-color:blue">Read More</a>
+            </div>
+        
+            <div class="col-md-4">
+                <h3>Record Label Deals</h3>
+                <p>Take your music career to the next level with our record label deals. Get signed, get noticed, and get paid. Our team of industry experts is here to help you succeed.</p>
+                <a href="{% url 'studio_app:record_label_deals' %}" class="btn btn-secondary" style="background-color:blue">Learn More</a>
+             
+            </div>
+             
+            <!-- This read me button is just acting as a placeholder-->
+            <div>
+                <h1>@ Eagles City of Music</h1>
+                <h3>We make music that moves you!</h3>
+                <p>Join the movement and experience the best of music, live performances, and behind-the-scenes moments. Follow us for exclusive updates, promotions, and giveaways!</p>
+                <a href="{% url 'studio_app:join' %}" class="btn btn-secondary" style="background-color:blue"></a>
+            </div>
+    
+        </div>
+
+    </div>
+
+
+
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark" style="position: relative; padding: 0; border: none;">
+    <div class="slideshow-container" style="width: 100%; height: 50vh; position: relative; top: -50vh; background-color:black;" >
+</nav>
+
+
+
+<!-- Full-image background with slideshow  --> 
+<div class="slideshow-container  continuous-slideshow" style="width: 100%; height: 100vh; position: relative; top: -50vh;">
+    <img src="{% static 'studio_app/img/singer.jpeg' %}" class="d-block" style="width: 100%; height: 100%; object-fit: cover;" alt="...">
+    <img src="{% static 'studio_app/img/tweetseven.jpeg' %}" style="width: 100%; height: 100%; object-fit: cover;">
+    <img src="{% static 'studio_app/img/tweeteight.jpeg' %}" style="width: 100%; height: 100%; object-fit: cover;">
+    <img src="{% static 'studio_app/img/tweet.png' %}" style="width: 100%; height: 100%; object-fit: cover;">
+    <img src="{% static 'studio_app/img/tweetfive.jpeg' %}" style="width: 100%; height: 100%; object-fit: cover; ">
+</div>
+
+<nav style="position: relative; padding: 0; border: none;">
+    <div class="slideshow-container" style="width: 100%; height: 80vh; position: relative; top: -40vh; background-color:red;">
+        <img src="{% static 'studio_app/img/studio5.jpg' %}" class="d-block" style="width: 100%; height: 100%; object-fit: cover;" alt="Studio Background">
+        <img src="{% static 'studio_app/img/studio2.webp' %}"  class="d-block" style="width: 100%; height: 100%; object-fit: cover;" alt="Studio Background">
+        <img src="{% static 'studio_app/img/studio5.jpg' %}" class="d-block" style="width: 100%; height: 100%; object-fit: cover;" alt="Studio Background">
+        <img src="{% static 'studio_app/img/studio5.jpg' %}"  class="d-block" style="width: 100%; height: 100%; object-fit: cover;" alt="Studio Background">
+        <img src="{% static 'studio_app/img/studio5.jpg' %}"  class="d-block" style="width: 100%; height: 100%; object-fit: cover;" alt="Studio Background">
+     
+        
+        <h1 style="margin-bottom: 20px;">Eagle  Music Records is here for you!</h1>
+        <h2>Signup to enjoy our Record label deals</h2>
+        <h3>We are here to bring your music career to fame</h3>
+        <h2>This is the moment you have been waiting for!</h2>
+        <h2>Contact us now!</h2>
+    </div>
+</nav>
+
+
+    <!-- authentication -->
+
+<div class="footer mt-auto" style="background-color: black; padding: 55px; color:white";>
+  <div class="container">
+    {% if request.user.is_authenticated %}
+    <nav style="padding: 10px; background-color:black; height:445px;">
+        <div class="container">
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item"><a class="nav-link" href="{% url 'studio_app:dashboard' %}">Dashboard</a></li>
+                <li class="nav-item"><a class="nav-link" href="{% url 'studio_app:music_authorization' %}">Upload Music</a></li>
+                <li class="nav-item"><a class="nav-link" href="{% url 'studio_app:video_authorization' %}">Upload Video</a></li>
+                <li class="nav-item"><a class="nav-link" href="{% url 'studio_app:profile' %}">Profile</a></li>
+                <li class="nav-item"><a class="nav-link" href="{% url 'studio_app:login' %}">Login</a></li>
+             <!--<li class="nav-item"><a class="nav-link" href="{% url 'studio_app:logout' %}">Logout</a></li>-->
+            </ul>
+       </div>
+    </nav>
+    {% endif %}
+
+
+  </div>
+</div>
+
+{% block content %}{% endblock %}
+    
+
+  <script>
+    function toggleMenu() {
+      const menu = document.getElementById("hiddenMenu");
+      if (menu.style.display === "flex") {
+        menu.style.display = "none";
+      } else {
+        menu.style.display = "flex";
+      }
+    }
+  </script>
+
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+
+
+</body>
+</html>

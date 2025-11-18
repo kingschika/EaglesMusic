@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Terms and Conditions |Eagles Music Records</title>
+    <style>
+        /* Reset some default styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html, body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            min-height: 100vh;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            color: #fff;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        /* Fullscreen image background */
+        .background-img {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            object-fit: cover;
+            z-index: -1;
+            opacity: 1;
+        }
+
+        .terms-container {
+            background-color: rgba(0, 0, 0, 0.7);
+            margin: auto;
+            padding: 40px;
+            border-radius: 10px;
+            width: 90%;
+            max-width: 800px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
+        }
+
+        .terms-container h1 {
+            margin-bottom: 20px;
+        }
+
+        .terms-container p {
+            margin-bottom: 20px;
+        }
+
+        .footer {
+            margin-top: auto;
+            background-color: rgba(0, 0, 0, 0.8);
+            color: #ccc;
+            padding: 15px 20px;
+            text-align: center;
+            font-size: 14px;
+        }
+
+        .footer nav {
+            margin-bottom: 10px;
+        }
+
+        .footer nav a {
+            color: #fff;
+            margin: 0 10px;
+            text-decoration: none;
+        }
+
+        .footer nav a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    
+    <!-- Local static image background -->
+    <img src="{% static 'studio_app/img/studio1.jpg' %}" alt="Studio Background" class="background-img">
+
+    <!-- Your content below... -->
+    <div class="terms-container">
+        <h1>Terms and Conditions</h1>
+        <p>By using our website and services, you agree to be bound by these terms and conditions. Please read them carefully before using our services.</p>
+        <h2>1. Use of Services</h2>
+        <p>Our services are provided for your personal use only. You may not use our services for any commercial purpose without our prior written consent.</p>
+        <h2>2. Intellectual Property</h2>
+        <p>All content on our website, including music, lyrics, and images, is the property of Tweet Music Records or its licensors. You may not use any of our content without our prior written consent.</p>
+        <h2>3. Liability</h2>
+        <p>We are not liable for any damages or losses resulting from your use of our services. You use our services at your own risk.</p>
+        <h2>4. Governing Law</h2>
+        <p>These terms and conditions are governed by the laws of Nigeria. Any disputes arising out of or in connection with these terms and conditions will be resolved through arbitration in accordance with the rules of the Nigerian Arbitration and Conciliation Act.</p>
+    </div>
+
+    <div class="footer">
+        <nav>
+            <a href="{% url 'studio_app:home' %}">Home</a> |
+            <a href="{% url 'studio_app:privacy_policy' %}">Privacy Policy</a> |
+            <a href="{% url 'studio_app:terms_conditions' %}">Terms of Use</a>
+        </nav>
+        <p>&copy; {{ now.year }} Eagles Music Records. All rights reserved.</p>
+    </div>
+
+</body>
+</html>

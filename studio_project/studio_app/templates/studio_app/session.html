@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Join Our Record Label | Eagles Music Records</title>
+    <style>
+        /* Reset some default styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html, body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            min-height: 100vh;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            color: #fff;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        /* Fullscreen image background */
+        .background-img {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            object-fit: cover;
+            z-index: -1;
+            opacity: 1;
+        }
+
+        .join-container {
+            background-color: rgba(0, 0, 0, 0.7);
+            margin: auto;
+            padding: 40px;
+            border-radius: 10px;
+            width: 90%;
+            max-width: 800px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
+        }
+
+        .join-form {
+            margin-bottom: 20px;
+        }
+
+        .join-form label {
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        .join-form input, .join-form textarea {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 20px;
+            border: none;
+            border-radius: 5px;
+        }
+
+        .footer {
+            margin-top: auto;
+            background-color: rgba(0, 0, 0, 0.8);
+            color: #ccc;
+            padding: 15px 20px;
+            text-align: center;
+            font-size: 14px;
+        }
+
+        .footer nav {
+            margin-bottom: 10px;
+        }
+
+        .footer nav a {
+            color: #fff;
+            margin: 0 10px;
+            text-decoration: none;
+        }
+
+        .footer nav a:hover {
+            text-decoration: underline;
+        }
+
+        @media (max-width: 600px) {
+            .join-container {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    
+    <!-- Local static image background -->
+    <img src="{% static 'studio_app/img/studio1.jpg' %}" alt="Studio Background" class="background-img">
+
+    <!-- Your content below... -->
+    <div class="join-container">
+        <h1>Eagles Music Records </h1>
+		<h3>Are you recording for 45 minutes, 1 hour or more!</h3>
+		 <h3>Write your session time in the session column below! </h3>
+		
+        <form class="join-form" method="post">
+            {% csrf_token %}
+            <label for="name">Name:</label>
+            <input type="text" id="name" name="name" required>
+			<label for="name">Whatsapp Phone Number:</label>
+            <input type="text" id="whatsapp" name="whatsapp" required>
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" required>
+            <label for="session">Session:</label>
+            <textarea id="session" name="session" required></textarea>
+            <label for="demo">Demo (attach file):</label>
+            <input type="file" id="demo" name="demo" required>
+            <button type="submit">Name:</label>
+            <button type="submit">Submit</button>
+        </form>
+    </div>
+
+    <div class="footer">
+        <nav>
+            <a href="{% url 'studio_app:home' %}">Home</a> |
+            <a href="#">Privacy Policy</a> |
+            <a href="#">Terms of Use</a>
+        </nav>
+        <p>&copy; {{ now.year }} Eagles Music Records. All rights reserved.</p>
+    </div>
+
+</body>
+</html>

@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Product Detail</title>
+</head>
+<body>
+	<div style="max-width: 600px; margin: 50px auto; font-family: Arial;"></div>
+    <h1>{{ product.name }}</h1>
+    <p>{{ product.description }}</p>
+    <p><strong>Price:</strong> ₦{{ product.price }}</p>
+    {% if product.image %}
+        <img src="{{ product.image.url }}" alt="Product Image">
+		<a href="/online-market-store/">⬅ Back to Store</a>
+    {% endif %}
+	
+        <footer>
+            <p style="color: gray;">&copy; {{ now.year }} Eagles Music Records</p>
+        </footer>
+    </div>
+</body>
+</html>

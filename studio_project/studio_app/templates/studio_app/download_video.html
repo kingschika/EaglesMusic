@@ -1,0 +1,47 @@
+
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Download Videos</title>
+    <style>
+		     body {
+            font-family: Arial, sans-serif;
+        }
+        .song-container {
+            max-width: 800px;
+            margin: 40px auto;
+            padding: 20px;
+            background-color: #f9f9f9;
+            border: 1px solid #ddd;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .song {
+            margin-bottom: 20px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #ccc;
+        }
+        .song h2 {
+            margin-top: 0;
+        }
+	</style>
+</head>
+<body>
+	    <!-- Local static image background -->
+    <img src="{% static 'studio_app/img/singer.jpeg' %}" alt="Studio Background" class="background-img">
+    <img src="{% static 'studio_app/img/singer.jpeg' %}" alt="Studio Background" class="background-img">
+    <img src="{% static 'studio_app/img/singer.jpeg' %}" alt="Studio Background" class="background-img">
+
+    <div class="song-container">
+        <h1>Download Video<h1>
+        {% for video in videos %}
+            <div class="video">
+                <h2>{{ video.title }}</h2>
+                <p>Artist: {{ video.artist }}</p>
+                <p><a href="{{ video.audio_file.url }}">Download Song</a></p>
+            </div>
+        {% endfor %}
+    </div>
+</body>
+</html>

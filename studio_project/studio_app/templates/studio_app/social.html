@@ -1,0 +1,78 @@
+
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Social Media Entertainment News</title>
+    <style>
+        /* Add some basic styling */
+        body {
+            font-family: Arial, sans-serif;
+        }
+        .social-container {
+            max-width: 800px;
+            margin: 40px auto;
+            padding: 60px;
+            background-color: #f9f9f9;
+            border: 1px solid #ddd;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .news-item {
+            margin-bottom: 20px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #ccc;
+        }
+        .news-item h2 {
+            margin-top: 0;
+        }
+    </style>
+</head>
+<body>
+			    <!-- Local static image background -->
+    <img src="{% static 'studio_app/img/tweet12.jpeg' %}" alt="Studio Background" class="background-img">
+    <img src="{% static 'studio_app/img/tweet12.jpeg' %}" alt="Studio Background" class="background-img">
+	<img src="{% static 'studio_app/img/tweet12.jpeg' %}" alt="Studio Background" class="background-img">
+    <img src="{% static 'studio_app/img/tweet13.jpeg' %}" alt="Studio Background" class="background-img">
+    <img src="{% static 'studio_app/img/tweet13.jpeg' %}" alt="Studio Background" class="background-img">
+    <img src="{% static 'studio_app/img/tweet13.jpeg' %}" alt="Studio Background" class="background-img">
+
+    <div class="social-container">
+        <h1>Social Media Entertainment News</h1>
+        {% for news in social_news %}
+            <div class="news-item">
+                <h2>{{ news.title }}</h2>
+                <p>{{ news.content }}</p>
+                {% if news.image %}
+                    <img src="{{ news.image.url }}" alt="News Image">
+                {% endif %}
+            </div>
+        {% endfor %}
+    </div>
+
+
+
+  <div class="footer mt-auto" style="background-color: blueviolet; padding: 50px; color: white";>
+    <div class="container">
+      <ul class="nav justify-content-center">
+        <li class="nav-item">
+          <a class="nav-link text-white" href="{% url 'studio_app:about' %}">About Us</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link text-white" href="{% url 'studio_app:contact' %}">Contact Us</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link text-white" href="{% url 'studio_app:faq' %}">FAQ</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link text-white" href="{% url 'studio_app:terms_conditions' %}">Terms & Conditions</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link text-white" href="{% url 'studio_app:privacy_policy' %}">Privacy Policy</a>
+        </li>
+      </ul>
+      <p class="text-center">&copy; {% now "Y" %} Eagles Music Records. All rights reserved.</p>
+    </div>
+  </div>	
+</body>
+</html>

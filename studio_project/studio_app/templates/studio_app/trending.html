@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Trending Music Videos and Songs</title>
+    <style>
+              /* Reset and general styling */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html, body {
+            height: 100%;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            overflow-x: hidden;
+            position: relative;
+            color: #fff;
+        }
+
+        /* Slideshow Background */
+        .slideshow {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+        }
+
+        .slideshow img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            position: absolute;
+            opacity: 0;
+            transition: opacity 1s ease-in-out;
+        }
+
+        .slideshow img.active {
+            opacity: 1;
+        }
+
+        /* Foreground content */
+        .trending-container {
+            background-color: rgba(0, 0, 0, 0.75);
+            margin: 80px auto 20px;
+            padding: 40px;
+            border-radius: 10px;
+            width: 90%;
+            max-width: 500px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
+        }
+
+        .trending-item {
+            margin-bottom: 20px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #ccc;
+        }
+        .trending-item h2 {
+            margin-top: 0;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        form p {
+            margin-bottom: 15px;
+        }
+
+        input[type="text"],
+        input[type="file"] {
+            width: 100%;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+        }
+
+        button {
+            padding: 10px;
+            background-color: #ff4e4e;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #e63e3e;
+        }
+
+        .advert-section {
+            margin: 30px auto;
+            background-color: rgba(255, 255, 255, 0.2);
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+            max-width: 600px;
+        }
+
+        .advert-section h2 {
+            margin-bottom: 10px;
+        }
+
+        .advert-section p {
+            font-size: 14px;
+        }
+
+        .footer {
+            margin-top: auto;
+            background-color: rgba(0, 0, 0, 0.8);
+            color: #ccc;
+            padding: 15px 20px;
+            text-align: center;
+            font-size: 14px;
+        }
+
+        .footer nav {
+            margin-bottom: 10px;
+        }
+
+        .footer nav a {
+            color: #fff;
+            margin: 0 10px;
+            text-decoration: none;
+        }
+
+        .footer nav a:hover {
+            text-decoration: underline;
+        }
+
+        @media (max-width: 600px) {
+            .upload-container {
+                padding: 20px;
+            }
+        }
+   
+    </style>
+</head>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark" style="position: relative; padding: 0; border: none;">
+   <div class="slideshow-container" style="width: 100%; height: 0vh; position: relative;">  
+    
+       <ul style="list-style: none; padding: 0; margin: 0; display: flex; flex-wrap: wrap;">
+            <li style="margin-right: 20px;"><a href="{% url 'studio_app:artists' %}" style="color: white; text-decoration: none;">Our Artists</a></li>
+            <li style="margin-right: 20px;"><a href="{% url 'studio_app:upload_music' %}" style="color: white; text-decoration: none;">Upload Music</a></li>
+            <li style="margin-right: 20px;"><a href="{% url 'studio_app:upload_video' %}" style="color: white; text-decoration: none;">Upload Video</a></li>
+            <li style="margin-right: 20px;"><a href="{% url 'studio_app:join' %}" style="color: white; text-decoration: none;">Record Live</a></li>
+            <li style="margin-right: 20px;"><a href="{% url 'studio_app:join' %}" style="color: white; text-decoration: none;">Watch Us Live</a></li>
+            <li style="margin-right: 20px;"><a href="{% url 'studio_app:contact' %}" style="color: white; text-decoration: none;">Contact Us</a></li>
+            <li style="margin-right: 20px;"><a href="{% url 'studio_app:about' %}" style="color: white; text-decoration: none;">About Us</a></li>
+            <li style="margin-right: 20px;"><a href="{% url 'studio_app:news' %}" style="color: white; text-decoration: none;">News</a></li>
+            <li style="margin-right: 20px;"><a href="{% url 'studio_app:join' %}" style="color: white; text-decoration: none;">For Artists</a></li>
+            <li><a href="{% url 'studio_app:faq' %}" style="color: white; text-decoration: none;">FAQ</a></li>
+            
+        </ul>
+    </div>
+</nav>
+<body>
+        
+    <!-- 🎞️ Background Slideshow -->
+    <div class="slideshow">
+        <img src="https://images.unsplash.com/photo-1580587771525-78b9dba3b914" class="active" alt="Studio 1">
+        <img src="{% static 'studio_app/img/studio2.webp' %}" alt="Studio 2">
+        <img src="{% static 'studio_app/img/studio3.webp' %}" alt="Studio 3">
+        <img src="{% static 'studio_app/img/tweeteight.jpeg' %}" alt="Studio 4">
+    </div> 
+        
+<div>
+     <!--Local static image background--> 
+     <div>
+    <img src="{% static 'studio_app/img/tweeteight.jpeg' %}" alt="Studio Background" class="background-img">
+       <img src="{% static 'studio_app/img/tweeteight.jpeg' %}" alt="Studio Background" class="background-img">
+        <img src="{% static 'studio_app/img/tweeteight.jpeg' %}" alt="Studio Background" class="background-img">
+             <img src="{% static 'studio_app/img/tweeteight.jpeg' %}" alt="Studio Background" class="background-img">
+                <img src="{% static 'studio_app/img/tweeteight.jpeg' %}" alt="Studio Background" class="background-img">
+                   <img src="{% static 'studio_app/img/tweeteight.jpeg' %}" alt="Studio Background" class="background-img">
+    </div>  
+        
+     
+    <div class="trending-container">
+        <h1>Trending Music Videos and Songs</h1>
+        {% for item in trending_items %}
+            <div class="trending-item">
+                <h2>{{ item.title }}</h2>
+                <p>{{ item.description }}</p>
+                {% if item.video_url %}
+                    <video width="320" height="240" controls>
+                        <source src="{{ item.video_url }}" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                {% endif %}
+                {% if item.audio_url %}
+                    <audio controls>
+                        <source src="{{ item.audio_url }}" type="audio/mpeg">
+                       <!-- Your browser does not support the audio tag. -->
+                    </audio>
+                {% endif %}
+            </div>
+        {% endfor %}
+
+        <h2>Trending News</h2>
+        {% for news in trending_news %}
+            <div class="trending-item">
+                <h2>{{ news.title }}</h2>
+                <p>{{ news.content }}</p>
+            </div>
+        {% endfor %}
+    </div>
+
+         
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark" style="position: relative; padding: 0; border: none;">
+   <div class="slideshow-container" style="width: 100%; height: 100vh; position: relative;">    
+      <img src="{% static 'studio_app/img/studio12.avif' %}" class="d-block" style="width: 100%; height: 100vh; object-fit: cover;" alt="...">
+   
+    <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;">
+        <!-- Button 1 whatsapp and instagram link -->
+        <a href="https://api.whatsapp.com/send?phone=2347040702727&text=Hi%20I%20just%20visited%20your%20music%20studio%20website!" target="_blank"  class="btn btn-success" style="position: absolute; top: 10%; left: 2%; text-decoration: none; color: white; background-color: red; padding: 10px; font-weight:bold; height:10vh; ">Join Us on WhatsApp</a>
+        <a href="https://www.instagram.com/direct/new/?text=Hello&username=King Godking" style="position: absolute; top: 30%; left: 45%; text-decoration: none; color: white; background-color: blueviolet; padding: 10px; font-weight:bold;">Instagram Page</a>
+        <!-- Button 2  facebook, twitter, tiktok and Youtube-->
+        <a href="https://m.me/King Godking" style="position: absolute; top: 30%; left: 5%; text-decoration: none; color: white; background-color: red; padding: 10px; font-weight:bold;">Our Facebook Page</a>
+        <a href="https://twitter.com/godking3542" target="_blank" rel="noopener noreferrer" style="position: absolute; top: 30%; left: 25%; text-decoration: none; color: white; background-color: burlywood; padding: 10px; font-weight:bold;">On Twitter(X)</a>
+        <a href="https://www.tiktok.com/@beatmaster3000" style="position: absolute; top: 10%; left: 70%; text-decoration: none; color: white; background-color: red; padding: 10px; font-weight:bold;">Our Tiktok Page</a>
+        
+        <!-- Button 3 -->
+        <a href="https://www.youtube.com/@kinggodking3208" style="position: absolute; top: 30%; left: 65%; text-decoration: none; color: white; background-color: blue; padding: 10px; font-weight:bold;">Our Youtube Page</a>
+    </div> 
+
+
+    <!-- 👣 Footer -->
+    <div class="footer" style="padding:50px; ">
+        <nav>
+            <a href="/contact">Contact</a> |
+            <a href="#">Privacy Policy</a> |
+            <a href="#">Terms of Service</a>
+        </nav>
+        <p>&copy; {{ now.year }} Eagles Music Records. All rights reserved.</p>
+    </div>
+</nav>
+</body>
+</html>

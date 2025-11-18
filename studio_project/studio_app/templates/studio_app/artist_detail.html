@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Artist Detail</title>
+</head>
+<body>
+    <h1>{{ artist.name }}</h1>
+    <p>{{ artist.bio }}</p>
+    {% if artist.image %}
+        <img src="{{ artist.image.url }}" alt="Artist Image">
+    {% endif %}
+</body>
+</html>

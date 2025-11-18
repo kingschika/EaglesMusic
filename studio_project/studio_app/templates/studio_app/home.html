@@ -1,0 +1,122 @@
+{% extends 'studio_app/base.html' %}
+{% load static %}
+   
+{% block content %}
+
+  <div class="footer mt-auto" style="background-color: black; padding: 50px; color: white";>
+    <div class="container" style="padding-bottom: 20px; margin-top: -200px; ">
+
+  <h1>Latest Songs:</h1>
+<ul>
+  {% for song in songs %}
+    <div class="item">
+      <li>{{ song.title }} by {{ song.artist }}</li>
+      <audio controls>
+        <source src="{{ song.audio_file.url }}" type="audio/mpeg">
+        Your browser does not support the audio element.
+      </audio>
+      <br>
+      <a class="download" href="{{ song.audio_file.url }}" download>⬇ Download</a>
+    </div>
+  {% empty %}
+    <p>No songs available.</p>
+  {% endfor %}
+</ul>
+
+<h2>Latest Videos:</h2>
+<ul>
+  {% for video in videos %}
+    <div class="item">
+      <li>{{ video.title }} by {{ video.artist }}</li>
+      <video controls>
+        <source src="{{ video.video_file.url }}" type="video/mp4">
+        Your browser does not support the video tag.
+      </video>
+      <br>
+      <a class="download" href="{{ video.video_file.url }}" download>⬇ Download</a>
+    </div>
+  {% empty %}
+    <p>No videos available.</p>
+  {% endfor %}
+</ul>
+
+
+  
+  
+
+  <a href="https://api.whatsapp.com/send?phone=2347040702727&text=Hi%20I%20just%20visited%20your%20music%20studio%20website!" class="btn btn-primary" style="background-color: black; color:green;">Join Us On WhatsApp</a>
+  </div>
+
+
+  
+    <div class="container mt-5">
+      <h2>Enjoy yourself  !!!</h2>
+
+    <div class="row">
+      <div class="col-md-4">
+        <h3>Download Our Music Videos</h3>
+        <p>Get access to our exclusive music videos and enjoy your favorite songs in high-quality video format. Download now and start watching!</p>
+        <a href="{% url 'studio_app:download_videos' %}" class="btn btn-secondary" style="background-color:black; color:red;">Read More</a>
+      </div>
+      <div class="col-md-4">
+        <h3>Download Our Songs</h3>
+        <p>Stream or download your favorite songs from our music library. Enjoy high-quality audio and discover new music that will keep you grooving all day long!</p>
+        <a href="{% url 'studio_app:download_songs' %}" class="btn btn-secondary" style="background-color:black; color:red">Read More</a>
+      </div>
+      <div class="col-md-4">
+        <h3>Have a Question for Tweet Music Records? </h3>
+        <p>Visit Our FAQ Page to find answers to your frequently asked questions about our music, services, and more. Get help and learn more about what we do!  </p>
+        <a href="{% url 'studio_app:faq' %}" class="btn btn-secondary" style="background-color:black; color:blue">Visit FAQ Page</a>
+      </div>
+    </div>
+  </div>
+
+  
+  <div class="container mt-5">
+    <h2>Your satisfaction is our priority !!!</h2>
+
+    <div class="row">
+      <div class="col-md-4">
+        <h4>Social Media Entertainment</h4>
+        <p>Stay connected with us on social media for the latest updates, behind-the-scenes content, and exclusive promotions. Follow us and join the conversation!</p>
+        <a href="{% url 'studio_app:social' %}" class="btn btn-secondary" style="background-color: black; color:blue">Read More</a>
+      </div>
+      <div class="col-md-4">
+        <h3>Advertise your products Here!</h3>
+        <p>Reach a wider audience and promote your products or services through our online market store. Get noticed and drive sales with our targeted advertising solutions.</p>
+        <a href="{% url 'studio_app:advertise_products' %}" class="btn btn-secondary" style="background-color:black; color:red">Read More</a>
+      </div>
+      <div class="col-md-4">
+        <h3>Comedy And Entertainment</h3>
+        <p>Laugh out loud with our comedy skits, funny videos, and entertaining content. Visit our news section for the latest updates and trending stories.</p>
+        <a href="{% url 'studio_app:comedy_entertainment' %}" class="btn btn-secondary" style="background-color:black; color:blue">Read More</a>
+  
+      </div>
+    </div>
+  </div>
+
+  <div class="footer mt-auto" style="background-color:red; padding: 30px; color:white;">
+    <div class="container">
+      <ul class="nav justify-content-center">
+        <li class="nav-item">
+          <a class="nav-link text-white" style="background-color:black;  " href="{% url 'studio_app:about' %}">About Us</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link text-white" style="background-color: black; "  href="{% url 'studio_app:contact' %}">Contact Us</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link text-white" style="background-color: black; "  href="{% url 'studio_app:faq' %}">FAQ</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link text-white"  style="background-color:black; " href="{% url 'studio_app:terms_conditions' %}">Terms & Conditions</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link text-white" style="background-color:black; "  href="{% url 'studio_app:privacy_policy' %}">Privacy Policy</a>
+        </li>
+      </ul>
+      <p class="text-center">&copy; {% now "Y" %} Eagles Music Records. All rights reserved.</p>
+    </div>
+  </div>
+
+
+{% endblock content %}
