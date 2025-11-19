@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 
 from pathlib import Path
 import os
+from distutils.util import strtobool
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -21,18 +22,28 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-oqaj9-$(y-dfvuvu60rcahi#%f1pmga^_yotrr83@2n!smrylh'
+# Read SECRET_KEY from environment when available (set on PA or other hosts).
+SECRET_KEY = os.environ.get(
+    'DJANGO_SECRET_KEY', 'django-insecure-oqaj9-$(y-dfvuvu60rcahi#%f1pmga^_yotrr83@2n!smrylh'
+)
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+# Default to False in production; set DJANGO_DEBUG=True in your environment to enable.
+DEBUG = os.environ.get('DJANGO_DEBUG', 'False') in ('True', 'true', '1')
 
-#STATIC_URL = '/static/'
-#STATIC_ROOT = os.path.join(BASE_DIR, 'studio_app', 'static')
-#STATICFILES_DIRS = [os.path.join(BASE_DIR, 'studio_app', 'static'),]
-#MEDIA_URL = '/media/'
-#MEDIA_ROOT = os.path.join(BASE_DIR,'media')
+# ALLOWED_HOSTS can be provided as a comma-separated env var, e.g.
+# DJANGO_ALLOWED_HOSTS=yourusername.pythonanywhere.com,localhost
+ALLOWED_HOSTS = os.environ.get('DJANGO_ALLOWED_HOSTS', 'localhost,127.0.0.1').split(',')
 
-ALLOWED_HOSTS = []
+# Static/media settings
+STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+STATICFILES_DIRS = [os.path.join(BASE_DIR, 'studio_app', 'static'),]
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR,'media')
+
+# Use WhiteNoise for serving static files in production (PythonAnywhere works with WSGI)
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 
 # Application definition
@@ -50,6 +61,8 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    # WhiteNoise should come directly after SecurityMiddleware to serve static files.
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -125,13 +138,7 @@ USE_TZ = True
 
 
 # Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/3.2/howto/static-files/
-
-STATIC_URL = '/static/'
-#STATIC_ROOT = os.path.join(BASE_DIR, 'studio_app', 'static')
-STATICFILES_DIRS = [os.path.join(BASE_DIR, 'studio_app', 'static'),]
-MEDIA_URL = '/media/'
-MEDIA_ROOT = os.path.join(BASE_DIR,'media')
+# The STATIC settings are defined above (STATIC_ROOT, STATIC_URL, STATICFILES_DIRS).
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
